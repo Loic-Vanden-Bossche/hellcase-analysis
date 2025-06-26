@@ -73,9 +73,93 @@ For each item in `itemlist`, the data includes:
 - Python 3.6+
 - pandas
 - requests
+- numpy
+- matplotlib
+- seaborn
+- tabulate
 
 ## Installation
 
 ```bash
-pip install pandas requests
+pip install pandas requests numpy matplotlib seaborn tabulate
+```
+
+## Case Simulator CLI Tool
+
+The repository includes a command-line tool for simulating case openings and analyzing case data.
+
+### Prerequisites
+
+Before using the simulator, you need to:
+1. Run `hellcase_api.py` to fetch basic case information
+2. Run `fetch_case_contents.py` to fetch detailed case contents
+3. Run `create_case_contents_csv.py` to create the dataset for analysis
+
+### Usage
+
+The CLI tool provides several commands:
+
+#### List Available Cases
+
+```bash
+python case_simulator.py list
+```
+
+Filter cases by name:
+```bash
+python case_simulator.py list --filter "knife"
+```
+
+#### Analyze Case Metrics
+
+Analyze a specific case:
+```bash
+python case_simulator.py analyze "Prisma Case"
+```
+
+Analyze top cases by different metrics:
+```bash
+python case_simulator.py analyze --sort ev-ratio --top 10
+python case_simulator.py analyze --sort profit-prob --top 5
+python case_simulator.py analyze --sort max-profit --top 5
+python case_simulator.py analyze --sort price --top 5
+```
+
+Available sort metrics:
+- `ev`: Expected Value
+- `ev-ratio`: Expected Value to Price Ratio
+- `profit-prob`: Probability of Profit
+- `max-profit`: Maximum Potential Profit
+- `price`: Case Price (lowest first)
+
+#### Get Case Recommendations
+
+Get recommendations for all player types:
+```bash
+python case_simulator.py recommend
+```
+
+Get recommendations for a specific player type:
+```bash
+python case_simulator.py recommend --type profit
+python case_simulator.py recommend --type risk-averse
+python case_simulator.py recommend --type high-risk
+python case_simulator.py recommend --type budget
+```
+
+#### Simulate Case Openings
+
+Simulate opening a case once:
+```bash
+python case_simulator.py simulate "Prisma Case"
+```
+
+Simulate multiple openings:
+```bash
+python case_simulator.py simulate "Prisma Case" -n 100
+```
+
+Simulate with visualization (requires matplotlib):
+```bash
+python case_simulator.py simulate "Prisma Case" -n 100 --plot
 ```
